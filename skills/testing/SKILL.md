@@ -1,5 +1,5 @@
 ---
-name: llmfw-testing
+name: testing
 description: Load before writing tests, fixtures, or touching coverage gates. Use for "write a test for this", "add a fixture", "why is coverage failing".
 ---
 

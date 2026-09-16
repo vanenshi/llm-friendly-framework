@@ -1,5 +1,5 @@
 ---
-name: llmfw-principles
+name: principles
 description: Load the framework's non-negotiable principles (con-NN) before a design decision, architecture change, code review, or trade-off call. Use for "should we...", "which approach", "review this design", "is this the right architecture".
 ---
 

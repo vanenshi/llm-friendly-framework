@@ -27,7 +27,7 @@ multiple files. This table is the **only** copy — `AGENTS.md` points here; nev
 `AGENTS.md` (and `CLAUDE.md` → `@AGENTS.md`) is always loaded — it's the contract. `PRINCIPLES.md`
 and every rule file here load **per task**, not always-on: for most agents, via the routing table
 above; for Claude Code with the `llmfw` plugin installed, each row is also a skill
-(`llmfw-principles`, `llmfw-vertical-slices`, …) that Claude loads on demand when the description
+(`llmfw:principles`, `llmfw:vertical-slices`, …) that Claude loads on demand when the description
 matches the task. Either path reads the same file — `docs/conventions/<file>.md` in the adopting
 repo, verbatim from the framework.
 

@@ -1,4 +1,4 @@
-Claude Code users: install the plugin and run `/llmfw-adopt` instead.
+Claude Code users: install the plugin and run `/llmfw:adopt` instead.
 
 # Prompt — apply the framework to an existing repo
 

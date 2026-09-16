@@ -1,4 +1,4 @@
-Claude Code users: install the plugin and run `/llmfw-audit` instead.
+Claude Code users: install the plugin and run `/llmfw:audit` instead.
 
 # Prompt — audit only (no changes)
 

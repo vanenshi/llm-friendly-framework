@@ -1,5 +1,5 @@
 ---
-name: llmfw-llm-friendly
+name: llm-friendly
 description: Load before naming, placing, commenting, or generating code — or touching a barrel or generated output. Use for "what should I name this", "where does this file go", "is this a barrel", "generated file edit".
 ---
 

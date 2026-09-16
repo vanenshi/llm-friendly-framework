@@ -1,5 +1,5 @@
 ---
-name: llmfw-adopt
+name: adopt
 description: Apply the LLM-Friendly Framework to an existing repo — discover its conventions, audit, then install the truth layer and gates at baseline severity. Use for "adopt llmfw here", "apply the framework to this existing repo", "onboard this codebase onto llm-friendly-framework".
 ---
 
@@ -13,10 +13,10 @@ repos, also read `adoption/monorepo.md` or `adoption/cross-repo.md`.
 
 Then execute **Phase 0a, Phase 0 and Phase 1** of `adoption/existing-project.md`:
 
-0. **Discover first.** Run `llmfw-discover` (`adoption/discover.md`) before anything else. Its
+0. **Discover first.** Run `llmfw:discover` (`adoption/discover.md`) before anything else. Its
    output, `docs/adoption-discovery.md`, is read by the audit below — do not audit a repo whose
    existing conventions haven't been mined yet.
-1. Audit read-only (`llmfw-audit`). Produce `docs/adoption-scorecard.md` with real counts and
+1. Audit read-only (`llmfw:audit`). Produce `docs/adoption-scorecard.md` with real counts and
    `file:line` samples, measured by running the framework's gates in report mode (Oxlint llmfw
    rules at `warn`, `check-repo.mjs` output captured), informed by `docs/adoption-discovery.md`. Do
    not fix anything in this step.

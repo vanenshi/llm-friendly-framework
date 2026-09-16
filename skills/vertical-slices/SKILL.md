@@ -1,5 +1,5 @@
 ---
-name: llmfw-vertical-slices
+name: vertical-slices
 description: Load before touching slice shape, module boundaries, the contracts door, or a registration list. Use for "add a new slice/feature", "cross-module call", "where does this registration go", "is this a module boundary violation".
 ---
 

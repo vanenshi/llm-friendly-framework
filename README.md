@@ -2,7 +2,8 @@
 
 A stack-agnostic operating system for codebases that are written and maintained by AI agents at
 least as often as by humans. It is a set of **documents, templates and machine-checked gates**, not
-a library. You hand this folder to an agent and say "apply it" — the agent does the rest.
+a library. Claude Code users install it as a plugin and run `/llmfw:adopt`; any other agent gets
+the same folder plus a paste-ready prompt — the agent does the rest.
 
 An agent works through `grep`, file paths and a limited context window. It cannot hold a
 conversation's worth of tribal knowledge, and it will confidently violate any rule that exists only
@@ -20,32 +21,44 @@ they are violated twice.
 | Gates           | `gates/`        | `check-repo.mjs` (config-driven repo-shape checks), Oxlint base config + custom rules, stack recipes |
 | Adoption        | `adoption/`     | Step-by-step for new projects, existing projects, monorepos, cross-repo systems                      |
 | Workflow        | `workflow/`     | Truth → gates → plans → handoffs; the minimum viable process and how to grow it                      |
-| Prompts         | `prompts/`      | Paste-ready prompts: apply to existing repo, bootstrap a new one, audit only                         |
+| Skills          | `skills/`       | Claude Code plugin skills: `audit`, `adopt`, `bootstrap`, `discover`, plus one loader per rule file  |
+| Hooks           | `hooks/`        | `PreToolUse` hook that blocks hand-edits to generated output before they happen (`llm-08`)           |
+| Prompts         | `prompts/`      | Paste-ready equivalents of the skills for agents other than Claude Code                              |
 
-## Install (Claude Code)
+## Install
+
+**Claude Code** — inside a session:
 
 ```
 /plugin marketplace add vanenshi/llm-friendly-framework
 /plugin install llmfw@llm-friendly-framework
 ```
 
-Then run `/llmfw-audit`, `/llmfw-adopt` or `/llmfw-bootstrap`. Conventions load on demand as skills
-(`llmfw-principles`, `llmfw-vertical-slices`, …) instead of always-on — see `conventions/README.md`
-§ Loading. Other agents (Codex, Cursor, Copilot) use the manual path below.
+Everything the plugin adds is a **skill**: Claude picks it up from what you ask, no command needed.
+The hook in `hooks/` activates with the plugin.
 
-## How to use it (three ways)
+**Any other agent** (Codex, Cursor, Copilot) — clone or copy this folder next to your repo and paste
+the matching file from `prompts/`, with `<FRAMEWORK_PATH>` filled in.
 
-1. **New project.** Paste [`prompts/bootstrap-new.md`](prompts/bootstrap-new.md) into your agent,
-   fill the three blanks (stack, product, repo layout). The agent follows
-   [`adoption/new-project.md`](adoption/new-project.md).
-2. **Existing project.** Paste [`prompts/apply-to-existing.md`](prompts/apply-to-existing.md). The
-   agent runs the audit, produces a scorecard, then adopts in phases per
-   [`adoption/existing-project.md`](adoption/existing-project.md) — never a big-bang rewrite.
-3. **Audit only.** Paste [`prompts/audit.md`](prompts/audit.md) to get the scorecard and a ranked
-   gap list without changing code.
+## How to use it
 
-In every case the agent first reads `PRINCIPLES.md`, then `conventions/README.md`, then only the
-rule files the task touches (the routing table tells it which).
+With the plugin installed, open Claude Code in your repo and ask in plain words:
+
+| Say something like                                        | Skill that answers  | Other agents paste                                             |
+| --------------------------------------------------------- | ------------------- | -------------------------------------------------------------- |
+| "audit this repo against the framework, change nothing"   | `llmfw:audit`       | [`prompts/audit.md`](prompts/audit.md)                         |
+| "find the conventions this codebase already follows"      | `llmfw:discover`    | part of `apply-to-existing.md`                                 |
+| "adopt the llm-friendly framework here"                   | `llmfw:adopt`       | [`prompts/apply-to-existing.md`](prompts/apply-to-existing.md) |
+| "bootstrap a new project with the framework"              | `llmfw:bootstrap`   | [`prompts/bootstrap-new.md`](prompts/bootstrap-new.md)         |
+
+`/llmfw:audit` etc. also work when you want to force a specific skill. `adopt` runs `discover`,
+then the audit, then the phased plan in [`adoption/existing-project.md`](adoption/existing-project.md)
+— never a big-bang rewrite. `bootstrap` follows [`adoption/new-project.md`](adoption/new-project.md).
+
+After adoption the rule files keep loading the same way: ask about errors, tests, slices, commits,
+and the matching `llmfw:errors`, `llmfw:testing`, `llmfw:vertical-slices`, `llmfw:version-control`
+skill reads the one rule file that applies (`conventions/README.md` § Loading). Agents without the
+plugin use the routing table in `AGENTS.md` for the same effect.
 
 ## The five ideas, in one screen
 
@@ -69,13 +82,19 @@ rule files the task touches (the routing table tells it which).
 ```
 llm-friendly-framework/
 ├── README.md                    ← you are here
+├── CHANGELOG.md                 ← one entry per FRAMEWORK_VERSION
 ├── PRINCIPLES.md                ← con-NN, override everything
-├── prompts/                     ← paste-ready entry points
-├── adoption/                    ← new / existing / monorepo / cross-repo
+├── .claude-plugin/              ← plugin.json + marketplace.json (Claude Code install)
+├── skills/                      ← audit / adopt / bootstrap / discover + one loader per rule file
+├── hooks/                       ← PreToolUse gate: no hand-edits to generated output
+├── prompts/                     ← same entry points as paste-ready prompts, for other agents
+├── adoption/                    ← discover / new / existing / monorepo / cross-repo
 ├── conventions/                 ← rule files + routing table + self-update protocol
 ├── agents/                      ← nesting model + templates (AGENTS.md, scope card, ADR, handoff…)
 ├── gates/                       ← check-repo.mjs, oxlint config + custom rules, stack recipes
-└── workflow/                    ← plans, handoffs, definition of done
+├── workflow/                    ← plans, handoffs, definition of done
+├── llmfw.config.json            ← this repo runs its own check-repo gate
+└── .github/workflows/ci.yml     ← fixtures + check-repo on every push
 ```
 
 ## Compatibility

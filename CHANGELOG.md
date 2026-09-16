@@ -3,11 +3,11 @@
 ## 0.2.0
 
 - Packaged as a Claude Code plugin (`llmfw`): `.claude-plugin/plugin.json` + `marketplace.json`,
-  `skills/llmfw-audit`, `llmfw-adopt`, `llmfw-bootstrap` wrapping `prompts/*.md`.
-- Split conventions into on-demand skills (`llmfw-principles` + one per `conventions/*.md` file) so
+  skills `llmfw:audit`, `llmfw:adopt`, `llmfw:bootstrap` wrapping `prompts/*.md`.
+- Split conventions into on-demand skills (`llmfw:principles` + one per `conventions/*.md` file) so
   rule files load per task instead of always-on; `conventions/README.md` and
   `agents/templates/AGENTS.root.md` document the split.
-- Added a discovery phase (`adoption/discover.md`, `skills/llmfw-discover`) that mines an existing
+- Added a discovery phase (`adoption/discover.md`, skill `llmfw:discover`) that mines an existing
   repo's own conventions before `existing-project.md` Phase 0 writes any docs.
 - Self-CI: pinned `oxlint@1.83` in the fixtures runner, added root `package.json` and
   `llmfw.config.json` so the framework runs its own gates, `check-repo.mjs` now exits 1 (not 2) on

@@ -1,5 +1,5 @@
 ---
-name: llmfw-bootstrap
+name: bootstrap
 description: Bootstrap a new project with the LLM-Friendly Framework — truth layer, gates before code, skeleton, first reference slice. Use for "bootstrap a new project with llmfw", "start a new repo with the framework", "set up llm-friendly-framework from scratch".
 ---
 

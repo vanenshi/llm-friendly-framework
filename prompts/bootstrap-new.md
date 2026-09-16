@@ -1,4 +1,4 @@
-Claude Code users: install the plugin and run `/llmfw-bootstrap` instead.
+Claude Code users: install the plugin and run `/llmfw:bootstrap` instead.
 
 # Prompt — bootstrap a new project with the framework
 

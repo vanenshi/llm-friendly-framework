@@ -1,5 +1,5 @@
 ---
-name: llmfw-errors
+name: errors
 description: Load before throwing, mapping, or branching on an error. Use for "add an error case", "what error type", "wire key for this failure", "catch and rethrow".
 ---
 

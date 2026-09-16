@@ -1,5 +1,5 @@
 ---
-name: llmfw-audit
+name: audit
 description: Audit a repo against the LLM-Friendly Framework, read-only, producing docs/adoption-scorecard.md. Use for "audit this repo", "how far are we from llmfw", "score this codebase against the framework", or before adopting the framework.
 ---
 

@@ -27,7 +27,7 @@ file's directory. A scope card (`<pattern>/AGENTS.md`) overrides this file for i
 | What one module owns, its door, its gate                 | `<pattern>/AGENTS.md`                 |
 | Handoffs, plans, parallel sessions                       | `## Agent sessions` below             |
 
-With the `llmfw` Claude Code plugin installed, each row is also a skill (`llmfw-<name>`) that loads
+With the `llmfw` Claude Code plugin installed, each row is also a skill (`llmfw:<name>`) that loads
 on demand; the table stays for other agents.
 
 ## Gates

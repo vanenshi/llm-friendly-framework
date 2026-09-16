@@ -79,5 +79,5 @@ One table:
 
 Every row is either "keep as-is" (the repo already does what the framework would ask) or feeds a
 specific phase of `existing-project.md` — cite the phase. This table is the input to
-`llmfw-audit`: an audit that skips discovery ends up proposing rules the repo already follows under
+`llmfw:audit`: an audit that skips discovery ends up proposing rules the repo already follows under
 a different name.
