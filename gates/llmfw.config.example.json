@@ -1,0 +1,100 @@
+{
+  "$comment": "Config for scripts/check-repo.mjs. Every entry carries the rule ID it enforces so a failure message routes the agent to the convention. Copy to repo root as llmfw.config.json and edit paths.",
+  "ignoreDirs": ["node_modules", "bin", "obj", ".next*", ".git", "dist", "gen", "Migrations"],
+  "agents": {
+    "file": "AGENTS.md",
+    "vendorFiles": ["CLAUDE.md"],
+    "vendorImportLine": "@AGENTS.md",
+    "scopeCards": {
+      "globs": ["api/src/Modules/*", "api/src/Kernel", "web/src/features/*"],
+      "exempt": [],
+      "maxLines": 40,
+      "pointersMustResolve": true
+    }
+  },
+  "docs": {
+    "dir": "docs",
+    "conventionsDir": "docs/conventions",
+    "constitution": "docs/CONSTITUTION.md",
+    "adrDir": "docs/adr",
+    "adrMaxLines": 45,
+    "debtLedger": "docs/tech-debts.md",
+    "linkExempt": [".agents/worktrees/**"]
+  },
+  "source": {
+    "extensions": [".cs", ".ts", ".tsx", ".mjs", ".js", ".css", ".yml", ".yaml", ".sql"],
+    "exempt": ["**/*.gen.*", "**/Migrations/**", "**/gen/**"],
+    "fileSize": { "maxLines": 300, "exempt": ["**/*.spec.ts", "**/*Tests.cs"] }
+  },
+  "forbiddenPatterns": [
+    {
+      "id": "llm-04",
+      "pattern": "AddValidatorsFromAssembly|ApplyConfigurationsFromAssembly|Assembly\\.GetTypes\\(\\)|\\.Scan\\(",
+      "files": "\\.cs$",
+      "message": "no assembly scans — every registration is an explicit list"
+    },
+    {
+      "id": "llm-04",
+      "pattern": "import\\.meta\\.glob|require\\.context\\(",
+      "files": "\\.(ts|tsx|mjs|js)$",
+      "message": "no glob imports — every registration is an explicit list"
+    },
+    {
+      "id": "vc-09",
+      "pattern": "(/Users/|/home/[a-z]|C:\\\\\\\\Users)",
+      "files": "\\.(json|yml|yaml|md|mjs|js|ts|cs|toml)$",
+      "exempt": [
+        "**/*.local.*",
+        "**/settings.local.json",
+        "llmfw.config.json",
+        "docs/conventions/**"
+      ],
+      "message": "machine-specific path committed — move to the gitignored .local sibling"
+    },
+    {
+      "id": "llm-10",
+      "pattern": "//\\s*(TODO|FIXME|HACK)\\b",
+      "files": "\\.(cs|ts|tsx|mjs|js)$",
+      "message": "a known cut is a `DEBT #N` comment with a ledger line, not a TODO"
+    },
+    {
+      "id": "err-06",
+      "pattern": "catch\\s*(\\([^)]*\\))?\\s*\\{\\s*\\}",
+      "files": "\\.(cs|ts|tsx)$",
+      "message": "empty catch swallows a failure"
+    }
+  ],
+  "forbiddenPaths": [
+    {
+      "id": "llm-02",
+      "pattern": "(^|/)(utils?|helpers?|misc|common|shared|stuff)(\\.[a-z]+|/index\\.[a-z]+)$",
+      "allow": ["web/src/lib/cn.ts"],
+      "message": "grab-bag file — name the file after the one thing it does"
+    },
+    {
+      "id": "llm-03",
+      "pattern": "(^|/)index\\.(ts|tsx|js)$",
+      "allow": ["web/src/app/**", "web/src/api/gen/**"],
+      "message": "index barrel — import the real source"
+    }
+  ],
+  "features": [{ "id": "tst-07", "dir": "web/src/features", "specDir": "web/tests/e2e" }],
+  "toolchain": [
+    {
+      "source": "global.json",
+      "jsonPath": "sdk.version",
+      "requireField": { "path": "sdk.rollForward", "value": "disable" },
+      "mustMatch": [{ "files": "Dockerfile$", "pattern": "dotnet/sdk:(\\S+)" }]
+    },
+    {
+      "source": ".nvmrc",
+      "mustMatch": [
+        { "files": "Dockerfile$", "pattern": "FROM node:(\\d+(?:\\.\\d+)*)" },
+        {
+          "files": "\\.github/workflows/.*\\.ya?ml$",
+          "pattern": "node-version:\\s*[\"']?(\\d+(?:\\.\\d+)*)"
+        }
+      ]
+    }
+  ]
+}

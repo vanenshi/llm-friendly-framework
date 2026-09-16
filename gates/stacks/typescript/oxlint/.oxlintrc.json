@@ -1,0 +1,67 @@
+{
+  // Base Oxlint config for an adopting TypeScript repo (Oxlint ≥ 1.80, JSONC — comments allowed).
+  // Copy to the repo root as .oxlintrc.json; copy llmfw-plugin.mjs to scripts/oxlint/.
+  // Built-in rules first (free, fast, Rust), then the llmfw custom rules mapped to convention IDs.
+  // Type-aware rules (`typescript/no-floating-promises` …) need `oxlint-tsgolint` installed and a
+  // tsconfig; drop `options.typeAware` and those rules if you cannot pay that cost yet.
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "import", "promise", "oxc"],
+  "jsPlugins": [{ "name": "llmfw", "specifier": "./scripts/oxlint/llmfw-plugin.mjs" }],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "warn"
+  },
+  "options": { "typeAware": true },
+  "rules": {
+    // Built-in rules that already enforce a convention ID — cite them in docs/conventions as `Enforced by`.
+    "no-empty": ["error", { "allowEmptyCatch": false }], // err-06
+    "typescript/no-explicit-any": "error", // llm-11
+    "typescript/no-non-null-assertion": "error", // con-06
+    "typescript/consistent-type-assertions": ["error", { "assertionStyle": "never" }], // con-06
+    "typescript/no-floating-promises": "error", // err-06 (type-aware)
+    "typescript/no-misused-promises": "error", // err-06 (type-aware)
+    "typescript/switch-exhaustiveness-check": "error", // con-06 (type-aware)
+    "typescript/no-unused-vars": "error", // con-08
+    "no-console": "error", // err-07
+    "unicorn/filename-case": ["error", { "case": "kebabCase" }], // llm-02
+    "import/no-cycle": "error", // vs-04
+    "promise/catch-or-return": "error", // err-06
+
+    // Convention rules with no built-in equivalent. Each message cites its ID.
+    "llmfw/no-barrel": "error", // llm-03
+    "llmfw/no-grab-bag-file": "error", // llm-02
+    "llmfw/no-composed-identifier": "error", // llm-01
+    "llmfw/max-file-lines": ["error", { "max": 300 }], // llm-06
+    "llmfw/no-bare-todo": "error", // llm-10
+    "llmfw/no-literal-route-in-test": "error", // tst-04
+    "llmfw/no-env-outside-config": ["error", { "allow": "(^|/)src/env\\.ts$" }], // llm-12
+    "llmfw/no-cross-feature-internal-import": [
+      "error",
+      { "featuresRoot": "features", "publicFile": "public" }
+    ], // vs-11
+    "llmfw/slice-section-order": "error" // vs-01
+  },
+  "overrides": [
+    {
+      // Generated output is exempt from everything (llm-03, llm-08).
+      "files": ["**/*.gen.ts", "**/gen/**"],
+      "rules": {
+        "llmfw/no-barrel": "off",
+        "llmfw/max-file-lines": "off",
+        "llmfw/no-grab-bag-file": "off",
+        "typescript/no-explicit-any": "off"
+      }
+    },
+    {
+      // Framework-mandated file names (Next.js App Router) are not grab-bags.
+      "files": ["**/app/**/page.tsx", "**/app/**/layout.tsx", "**/app/**/route.ts"],
+      "rules": { "unicorn/filename-case": "off" }
+    },
+    {
+      "files": ["**/*.spec.ts", "**/*.test.ts"],
+      "rules": { "llmfw/max-file-lines": ["error", { "max": 500 }] }
+    }
+  ],
+  "ignorePatterns": ["node_modules", ".next*", "dist", "coverage"]
+}

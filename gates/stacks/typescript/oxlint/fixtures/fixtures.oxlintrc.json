@@ -1,0 +1,21 @@
+{
+  // Fixture-only config: llmfw rules on, everything else off, so run-fixtures.mjs counts exactly
+  // one rule per folder. `max` and `allow` are tuned for the fixtures, not for a real repo.
+  "plugins": [],
+  "jsPlugins": [{ "name": "llmfw", "specifier": "../llmfw-plugin.mjs" }],
+  "categories": { "correctness": "off" },
+  "rules": {
+    "llmfw/no-barrel": "error",
+    "llmfw/no-grab-bag-file": "error",
+    "llmfw/no-composed-identifier": "error",
+    "llmfw/max-file-lines": ["error", { "max": 12 }],
+    "llmfw/no-bare-todo": "error",
+    "llmfw/no-literal-route-in-test": "error",
+    "llmfw/no-env-outside-config": ["error", { "allow": "no-env-outside-config/good\\.ts$" }],
+    "llmfw/no-cross-feature-internal-import": [
+      "error",
+      { "featuresRoot": "features", "publicFile": "public" }
+    ],
+    "llmfw/slice-section-order": "error"
+  }
+}
