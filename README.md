@@ -22,6 +22,17 @@ they are violated twice.
 | Workflow        | `workflow/`     | Truth → gates → plans → handoffs; the minimum viable process and how to grow it                      |
 | Prompts         | `prompts/`      | Paste-ready prompts: apply to existing repo, bootstrap a new one, audit only                         |
 
+## Install (Claude Code)
+
+```
+/plugin marketplace add vanenshi/llm-friendly-framework
+/plugin install llmfw@llm-friendly-framework
+```
+
+Then run `/llmfw-audit`, `/llmfw-adopt` or `/llmfw-bootstrap`. Conventions load on demand as skills
+(`llmfw-principles`, `llmfw-vertical-slices`, …) instead of always-on — see `conventions/README.md`
+§ Loading. Other agents (Codex, Cursor, Copilot) use the manual path below.
+
 ## How to use it (three ways)
 
 1. **New project.** Paste [`prompts/bootstrap-new.md`](prompts/bootstrap-new.md) into your agent,
@@ -83,4 +94,4 @@ This framework is versioned (`FRAMEWORK_VERSION` below). A project records the v
 in its `AGENTS.md` header so an upgrade is a diff, not archaeology. Rule IDs inside the framework
 are append-only across versions.
 
-`FRAMEWORK_VERSION: 0.1.0`
+`FRAMEWORK_VERSION: 0.2.0`

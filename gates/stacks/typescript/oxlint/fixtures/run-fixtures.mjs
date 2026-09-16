@@ -13,6 +13,9 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const norm = (p) => p.replace(/\\/g, "/");
+// Pinned so a fixture failure is never "oxlint shipped a new rule" — bump deliberately, in step
+// with gates/stacks/typescript/README.md.
+const OXLINT_VERSION = "oxlint@1.83";
 
 function walk(dir, out = []) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
@@ -27,7 +30,15 @@ let out;
 try {
   out = execFileSync(
     "npx",
-    ["--yes", "oxlint", "-c", path.join(here, "fixtures.oxlintrc.json"), "--format", "json", here],
+    [
+      "--yes",
+      OXLINT_VERSION,
+      "-c",
+      path.join(here, "fixtures.oxlintrc.json"),
+      "--format",
+      "json",
+      here,
+    ],
     { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
   );
 } catch (e) {

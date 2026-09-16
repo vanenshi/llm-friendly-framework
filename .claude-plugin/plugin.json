@@ -1,0 +1,8 @@
+{
+  "name": "llmfw",
+  "description": "LLM-Friendly Framework — docs, conventions and gates for codebases written and maintained by AI agents.",
+  "version": "0.2.0",
+  "author": {
+    "name": "vanenshi"
+  }
+}

@@ -22,10 +22,13 @@ file's directory. A scope card (`<pattern>/AGENTS.md`) overrides this file for i
 | Tests                                                    | `docs/conventions/testing.md`         |
 | Commits, branches, PRs                                   | `docs/conventions/version-control.md` |
 | Which doc owns which fact, Definition of Done            | `docs/conventions/documents.md`       |
-| <stack-specific rules>                                   | `docs/conventions/<backend            | frontend>.md` |
+| <stack-specific rules>                                   | `docs/conventions/<backend or frontend>.md` |
 | Invariants a compiler can't check                        | `docs/adr/`                           |
 | What one module owns, its door, its gate                 | `<pattern>/AGENTS.md`                 |
 | Handoffs, plans, parallel sessions                       | `## Agent sessions` below             |
+
+With the `llmfw` Claude Code plugin installed, each row is also a skill (`llmfw-<name>`) that loads
+on demand; the table stays for other agents.
 
 ## Gates
 

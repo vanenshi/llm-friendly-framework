@@ -1,0 +1,36 @@
+{
+  "$comment": "check-repo.mjs config for this repo (the framework itself). Only checks that make sense for a docs+scripts repo are enabled — see gates/README.md.",
+  "ignoreDirs": ["node_modules", ".git", "dist"],
+  "agents": {
+    "vendorFiles": []
+  },
+  "docs": {
+    "conventionsDir": "conventions",
+    "constitution": "PRINCIPLES.md"
+  },
+  "source": {
+    "extensions": [".mjs", ".json"],
+    "fileSize": {
+      "maxLines": 300,
+      "exempt": [
+        "gates/check-repo.mjs",
+        "gates/stacks/typescript/oxlint/llmfw-plugin.mjs"
+      ]
+    }
+  },
+  "forbiddenPatterns": [
+    {
+      "id": "vc-09",
+      "pattern": "(/Users/|/home/[a-z]|C:\\\\\\\\Users)",
+      "files": "\\.(json|yml|yaml|md|mjs|js|ts|cs|toml)$",
+      "exempt": [
+        "**/*.local.*",
+        "**/settings.local.json",
+        "llmfw.config.json",
+        "gates/llmfw.config.example.json",
+        "conventions/**"
+      ],
+      "message": "machine-specific path committed — move to the gitignored .local sibling"
+    }
+  ]
+}

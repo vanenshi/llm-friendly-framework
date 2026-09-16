@@ -1,23 +1,22 @@
-Claude Code users: install the plugin and run `/llmfw-audit` instead.
-
-# Prompt — audit only (no changes)
-
-Paste into your agent at the repo root with the framework at `<FRAMEWORK_PATH>`. Read-only.
-
+---
+name: llmfw-audit
+description: Audit a repo against the LLM-Friendly Framework, read-only, producing docs/adoption-scorecard.md. Use for "audit this repo", "how far are we from llmfw", "score this codebase against the framework", or before adopting the framework.
 ---
 
-Audit this repository against the LLM-Friendly Framework at `<FRAMEWORK_PATH>`. Read
+# Audit only (no changes)
+
+Audit this repository against the LLM-Friendly Framework at `${CLAUDE_PLUGIN_ROOT}`. Read
 `PRINCIPLES.md`, every file in `conventions/`, `agents/nesting.md` and `gates/README.md`. Change no
 source file; you may write exactly one file: `docs/adoption-scorecard.md`.
 
 Measure, do not estimate. For each rule that a gate can check, run the gate in report mode against
 this repo and record the count:
 
-- TypeScript: `npx oxlint -c <FRAMEWORK_PATH>/gates/stacks/typescript/oxlint/.oxlintrc.json` with
-  `jsPlugins` pointed at the framework's plugin, all llmfw rules at `warn`; `depcruise` with the
+- TypeScript: `npx oxlint -c ${CLAUDE_PLUGIN_ROOT}/gates/stacks/typescript/oxlint/.oxlintrc.json`
+  with `jsPlugins` pointed at the framework's plugin, all llmfw rules at `warn`; `depcruise` with the
   framework config adjusted to this layout.
-- Any stack: `node <FRAMEWORK_PATH>/gates/check-repo.mjs --root . --config <a config you write in
-the scratch folder from the example, globs adjusted>`.
+- Any stack: `node ${CLAUDE_PLUGIN_ROOT}/gates/check-repo.mjs --root . --config <a config you write
+  in the scratch folder from the example, globs adjusted>`.
 - .NET: `dotnet build -warnaserror` with `AnalysisLevel=latest-all` in a scratch
   `Directory.Build.props` (do not commit it); count by diagnostic ID.
 

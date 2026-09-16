@@ -1,26 +1,25 @@
-Claude Code users: install the plugin and run `/llmfw-adopt` instead.
-
-# Prompt — apply the framework to an existing repo
-
-Paste into your agent at the repo root with this framework available at `<FRAMEWORK_PATH>` (a
-sibling checkout, a submodule, or a copied folder).
-
+---
+name: llmfw-adopt
+description: Apply the LLM-Friendly Framework to an existing repo — discover its conventions, audit, then install the truth layer and gates at baseline severity. Use for "adopt llmfw here", "apply the framework to this existing repo", "onboard this codebase onto llm-friendly-framework".
 ---
 
-You are adopting the LLM-Friendly Framework at `<FRAMEWORK_PATH>` into this repository. Read, in
-order: `<FRAMEWORK_PATH>/README.md`, `PRINCIPLES.md`, `conventions/README.md`,
+# Apply the framework to an existing repo
+
+You are adopting the LLM-Friendly Framework at `${CLAUDE_PLUGIN_ROOT}` into this repository. Read,
+in order: `${CLAUDE_PLUGIN_ROOT}/README.md`, `PRINCIPLES.md`, `conventions/README.md`,
 `adoption/existing-project.md`, then the stack recipe(s) under `gates/stacks/` that match this repo
 (TypeScript: `typescript/README.md`; C#: `dotnet.md`). If the repo is a monorepo or one of several
 repos, also read `adoption/monorepo.md` or `adoption/cross-repo.md`.
 
 Then execute **Phase 0a, Phase 0 and Phase 1** of `adoption/existing-project.md`:
 
-0. Discover first: follow `adoption/discover.md` read-only, before touching the audit. Its output,
-   `docs/adoption-discovery.md`, feeds the audit below.
-1. Audit read-only. Produce `docs/adoption-scorecard.md` with real counts and `file:line` samples,
-   measured by running the framework's gates in report mode (Oxlint llmfw rules at `warn`,
-   `check-repo.mjs` output captured), informed by `docs/adoption-discovery.md`. Do not fix anything
-   in this step.
+0. **Discover first.** Run `llmfw-discover` (`adoption/discover.md`) before anything else. Its
+   output, `docs/adoption-discovery.md`, is read by the audit below — do not audit a repo whose
+   existing conventions haven't been mined yet.
+1. Audit read-only (`llmfw-audit`). Produce `docs/adoption-scorecard.md` with real counts and
+   `file:line` samples, measured by running the framework's gates in report mode (Oxlint llmfw
+   rules at `warn`, `check-repo.mjs` output captured), informed by `docs/adoption-discovery.md`. Do
+   not fix anything in this step.
 2. Install the truth layer: `docs/CONSTITUTION.md` (framework `con-01`–`con-19` verbatim),
    `docs/conventions/` (framework files verbatim + a stack file with this repo's reference slice
    named), root `AGENTS.md` from the template with **literal** gate commands, `CLAUDE.md` =

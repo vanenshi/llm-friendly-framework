@@ -1,0 +1,14 @@
+{
+  "name": "llm-friendly-framework",
+  "owner": {
+    "name": "vanenshi"
+  },
+  "description": "Conventions, agent contracts and machine-checked gates for AI-maintained codebases.",
+  "plugins": [
+    {
+      "name": "llmfw",
+      "source": "./",
+      "description": "LLM-Friendly Framework — docs, conventions and gates for codebases written and maintained by AI agents."
+    }
+  ]
+}

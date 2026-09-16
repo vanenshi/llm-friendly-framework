@@ -4,9 +4,17 @@ Never a big-bang rewrite. The framework is adopted as a **ratchet**: every gate 
 than today" and tightens as violations are retired. A rule the codebase violates 400 times is not a
 rule yet — it is a baseline plus a burn-down.
 
+## Phase 0a — Discover (read-only, one session)
+
+Run `adoption/discover.md` before the audit. Output is `docs/adoption-discovery.md`: the repo's own
+conventions, mined from its instruction files, folder shape, naming patterns, toolchain pins and
+lint configs — each row evidence-backed and either "keep as-is" or feeding a later phase. Skipping
+this step means the audit below proposes rules the repo already follows under a different name.
+
 ## Phase 0 — Audit (read-only, one session)
 
-Run `prompts/audit.md`. Output is a scorecard in `docs/adoption-scorecard.md`:
+Run `prompts/audit.md`, informed by `docs/adoption-discovery.md`. Output is a scorecard in
+`docs/adoption-scorecard.md`:
 
 | Area              | Rule(s)  | Current state (count, `file:line` samples)      | Gate that will hold it   | Phase |
 | ----------------- | -------- | ----------------------------------------------- | ------------------------ | ----- |

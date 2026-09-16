@@ -9,6 +9,7 @@ rule, fix, rerun.
 
 | Layer                     | Catches                                                                                      | Cost to add a rule  | Where                                                        |
 | ------------------------- | -------------------------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------ |
+| 0 Agent hooks              | Blocks the edit before it happens                                                            | one hook entry      | `hooks/block-generated-edit.mjs`                             |
 | 1 Compiler                | Types, nullability, exhaustiveness, unused symbols                                           | a flag              | `tsconfig` strict, `<Nullable>enable`, `-warnaserror`        |
 | 2 Formatter               | Everything about whitespace — never discussed in review                                      | zero                | Prettier / CSharpier, `--check` in CI                        |
 | 3 Linter (built-in rules) | Language-level smells: `any`, floating promises, empty catch, console                        | one config line     | Oxlint categories, Roslyn analyzers via `.editorconfig`      |

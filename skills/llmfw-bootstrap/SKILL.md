@@ -1,23 +1,21 @@
-Claude Code users: install the plugin and run `/llmfw-bootstrap` instead.
-
-# Prompt — bootstrap a new project with the framework
-
-Paste into your agent in an empty repo with this framework available at `<FRAMEWORK_PATH>`.
-
+---
+name: llmfw-bootstrap
+description: Bootstrap a new project with the LLM-Friendly Framework — truth layer, gates before code, skeleton, first reference slice. Use for "bootstrap a new project with llmfw", "start a new repo with the framework", "set up llm-friendly-framework from scratch".
 ---
 
-You are bootstrapping a new project with the LLM-Friendly Framework at `<FRAMEWORK_PATH>`.
+# Bootstrap a new project with the framework
 
-Inputs:
+You are bootstrapping a new project with the LLM-Friendly Framework at `${CLAUDE_PLUGIN_ROOT}`.
 
-- **Stack:** <TypeScript (Next.js/Node) | .NET | both — say which is API and which is UI>
-- **Product:** <one sentence>. First three product questions it must answer:
-  <q1>, <q2>, <q3>.
-- **Layout:** <single repo | monorepo | one of several repos (name the siblings)>
+Ask the user for, if not already given:
 
-Read, in order: `<FRAMEWORK_PATH>/README.md`, `PRINCIPLES.md`, `conventions/README.md` and every
-framework rule file it routes to, `agents/nesting.md`, `gates/README.md`, the stack recipe(s) under
-`gates/stacks/`, `workflow/README.md`, then `adoption/new-project.md` (and `monorepo.md` /
+- **Stack:** TypeScript (Next.js/Node) | .NET | both — which is API and which is UI.
+- **Product:** one sentence. First three product questions it must answer.
+- **Layout:** single repo | monorepo | one of several repos (name the siblings).
+
+Read, in order: `${CLAUDE_PLUGIN_ROOT}/README.md`, `PRINCIPLES.md`, `conventions/README.md` and
+every framework rule file it routes to, `agents/nesting.md`, `gates/README.md`, the stack recipe(s)
+under `gates/stacks/`, `workflow/README.md`, then `adoption/new-project.md` (and `monorepo.md` /
 `cross-repo.md` if the layout needs it).
 
 Execute `adoption/new-project.md` sections 1–4 completely, in order — truth layer, gates before

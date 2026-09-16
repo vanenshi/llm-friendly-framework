@@ -1,0 +1,9 @@
+{
+  "name": "llm-friendly-framework",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fixtures": "node gates/stacks/typescript/oxlint/fixtures/run-fixtures.mjs",
+    "check-repo": "node gates/check-repo.mjs"
+  }
+}

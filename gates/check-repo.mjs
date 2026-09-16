@@ -5,8 +5,11 @@
 // ("prose does not fail a build", conventions/README.md § escalation ladder).
 //
 //   node scripts/check-repo.mjs [--config llmfw.config.json] [--root .] [--only check1,check2]
+//   node scripts/check-repo.mjs --allow-missing-config   (run with an empty config; every
+//                                                          check that needs config entries no-ops)
 //
-// Exit 1 if any check failed. Each failure line is `<check>: <message>` so CI can group them.
+// Exit 1 if any check failed, or if the config is missing and --allow-missing-config wasn't
+// passed. Each failure line is `<check>: <message>` so CI can group them.
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 
@@ -19,11 +22,15 @@ const args = Object.fromEntries(
 );
 const root = path.resolve(args.root ?? ".");
 const configPath = path.resolve(root, args.config ?? "llmfw.config.json");
+let cfg = {};
 if (!existsSync(configPath)) {
-  console.error(`check-repo: no config at ${configPath} (copy gates/llmfw.config.example.json)`);
-  process.exit(2);
+  if (!args["allow-missing-config"]) {
+    console.error(`check-repo: no config at ${configPath} (copy gates/llmfw.config.example.json)`);
+    process.exit(1);
+  }
+} else {
+  cfg = JSON.parse(readFileSync(configPath, "utf8"));
 }
-const cfg = JSON.parse(readFileSync(configPath, "utf8"));
 const only = args.only ? new Set(args.only.split(",")) : null;
 
 // ---------- helpers ----------

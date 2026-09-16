@@ -1,6 +1,7 @@
 {
   "$comment": "Config for scripts/check-repo.mjs. Every entry carries the rule ID it enforces so a failure message routes the agent to the convention. Copy to repo root as llmfw.config.json and edit paths.",
   "ignoreDirs": ["node_modules", "bin", "obj", ".next*", ".git", "dist", "gen", "Migrations"],
+  "generatedPaths": ["**/generated/**", "**/*.generated.*"],
   "agents": {
     "file": "AGENTS.md",
     "vendorFiles": ["CLAUDE.md"],
