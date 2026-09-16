@@ -83,6 +83,7 @@ plugin use the routing table in `AGENTS.md` for the same effect.
 llm-friendly-framework/
 ├── README.md                    ← you are here
 ├── CHANGELOG.md                 ← one entry per FRAMEWORK_VERSION
+├── ROADMAP.md                   ← ordered next steps, each with an acceptance check
 ├── PRINCIPLES.md                ← con-NN, override everything
 ├── .claude-plugin/              ← plugin.json + marketplace.json (Claude Code install)
 ├── skills/                      ← audit / adopt / bootstrap / discover + one loader per rule file
